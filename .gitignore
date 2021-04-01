@@ -1,1 +1,8 @@
 .env
+
+
+ECommerce/__pycache__/
+store/migrations/
+
+
+db.sqlite3

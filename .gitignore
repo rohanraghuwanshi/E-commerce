@@ -3,6 +3,7 @@
 
 ECommerce/__pycache__/
 store/migrations/
+store/__pycache__/
 
 
 db.sqlite3

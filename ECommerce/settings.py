@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,6 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'store'
 ]
 
 MIDDLEWARE = [
@@ -95,3 +98,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+
+
+#Media Files
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data/') # 'data' is my media folder
+MEDIA_URL = '/media/'

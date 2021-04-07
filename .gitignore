@@ -8,3 +8,6 @@ store/__pycache__/
 
 db.sqlite3
 ECommerce/settings/__pycache__/
+
+
+media/

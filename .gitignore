@@ -1,4 +1,5 @@
 venv
+.vscode
 
 
 ECommerce/__pycache__/

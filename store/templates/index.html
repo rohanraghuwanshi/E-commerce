@@ -2,17 +2,29 @@
 
 {% block body %}
 <div class="conatiner">
-    {% for product in products %}
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
-        <div class="card-body row">
-            <h5 class="card-title">Card title</h5>
-            <p>{{ product.price }}</p>
+    <div class="row">
+        <div class="col-lg-2 my-2 mx-auto">
+            <div class="list-group mx-auto">
+                <h5 class="list-group-item list-group-item-action m-0">Categories</h5>
+                {% for category in categories %}
+                    <a href="?category={{category.id}}" class="list-group-item list-group-item-action">{{ category }}</a>
+                {% endfor %}
+            </div>
         </div>
-        <div class="card-body">
-            <a href="#" class="card-link btn btn-primary">Add to Cart</a>
+        <div class="col-lg-10 row mx-auto">
+            {% for product in products %}
+            <div class="card p-0 m-2" style="width: 18rem;">
+                <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                <div class="card-body row">
+                    <h5 class="card-title">Card title</h5>
+                    <p>{{ product.price }}</p>
+                </div>
+                <div class="card-body">
+                    <a href="#" class="card-link btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock body %}

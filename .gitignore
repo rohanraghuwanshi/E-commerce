@@ -2,12 +2,14 @@ venv
 
 
 ECommerce/__pycache__/
+ECommerce/settings/__pycache__/
 store/migrations/
+user/migrations/
 store/__pycache__/
+user/__pycache__/
 
 
 db.sqlite3
-ECommerce/settings/__pycache__/
 
 
 media/

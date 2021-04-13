@@ -5,21 +5,23 @@ from .models import Product, Category
 # Create your views here.
 
 
-def index(request):
 
-    categories = Category.get_all_categories()
+def store(request):
 
-    categoryId = request.GET.get('category')
+    context = {}
 
-    if categoryId:
-        products = Product.get_all_products_by_id(categoryId)
-    else:
-        products = Product.get_all_products()
-    
+    return render(request, "store/store.html", context)
 
-    context = {
-        "products": products,
-        "categories": categories,
-    }
 
-    return render(request, "index.html", context)
+def cart(request):
+
+    context = {}
+
+    return render(request, "store/cart.html", context)
+
+
+def checkout(request):
+
+    context = {}
+
+    return render(request, "store/checkout.html", context)

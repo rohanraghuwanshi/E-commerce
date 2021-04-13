@@ -21,7 +21,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False, blank=True, null=True)
-    #image
+    image = models.ImageField(upload_to='images/Products', blank=True, null=True)
 
     class Meta:
         verbose_name = "Product"

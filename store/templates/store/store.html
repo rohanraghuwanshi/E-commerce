@@ -7,7 +7,11 @@
 
         {% for product in products %}
         <div class="col-lg-4">
-            <img src="{{ product.image.url }}" alt="" class="thumbnail">
+            {% if product.imageURL %}
+                <img src="{{ product.image.url }}" alt="" class="thumbnail">
+            {% else %}
+                <img src="" alt="" class="thumbnail">
+            {% endif %}
             <div class="box-element product">
                 <h4><strong>{{ product.name }}</strong></h4>
                 <hr>

@@ -55,9 +55,15 @@
                 {% for item in items %}
                 <div class="cart-row">
                     <div style="flex: 2;"><img class="row-image" src="{{ item.product.imageURL }}" alt=""></div>
-                    <div style="flex: 2;"><p>{{ item.product.name }}</p></div>
-                    <div style="flex: 1;"><p>${{ item.product.price }}</p></div>
-                    <div style="flex: 1;"><p>x{{ item.quantity }}</p></div>
+                    <div style="flex: 2;">
+                        <p>{{ item.product.name }}</p>
+                    </div>
+                    <div style="flex: 1;">
+                        <p>${{ item.product.price }}</p>
+                    </div>
+                    <div style="flex: 1;">
+                        <p>x{{ item.quantity }}</p>
+                    </div>
                 </div>
                 {% endfor %}
                 <h5>Items : {{ order.get_cart_items }}</h5>
@@ -65,21 +71,19 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 
 <script>
     var shipping = '{{ order.shipping }}';
-    var total = '{{ order.get_cart_total | floatformat:2 }}'
+    var total = '{{ order.get_cart_total }}'
 
-    if(shipping=='False'){
+    if (shipping == 'False') {
         document.getElementsByClassName('shipping-info').innerHTML = '';
     }
 
     if ('{{request.user}}' != 'AnonymousUser') {
         document.getElementById('user-info').innerHTML = '';
     }
-
-    console.log('{{ request.user }}');
 
     if (shipping == 'False' && '{{request.user}}' != 'AnonymousUser') {
         document.getElementById('form-wrapper').classList.add('hidden');
@@ -88,28 +92,26 @@
 
     var form = document.getElementById('form');
 
-    form.addEventListener('submit', function(e){
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
-        console.log('Form submited');
         document.getElementById('form-button').classList.add("hidden");
         document.getElementById('payment-info').classList.remove("hidden");
     })
 
-    document.getElementById('make-payment').addEventListener('click', function(e){
+    document.getElementById('make-payment').addEventListener('click', function (e) {
         submitFormData();
     })
 
     function submitFormData() {
-        console.log("paid");
 
         var userFormData = {
-            'name':null,
+            'name': null,
             'email': null,
             'total': total
         }
 
         var shippingInfo = {
-            'address':null,
+            'address': null,
             'city': null,
             'state': null,
             'zipcode': null,
@@ -122,10 +124,34 @@
             shippingInfo.state = form.state.value;
         }
 
-        if (user =='AnonymousUser'){
+        if (user == 'AnonymousUser') {
             userFormData.name = form.name.value;
             userFormData.email = form.email.value;
         }
+
+        var url = '/process_order/';
+
+        fetch(
+            url,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'form': userFormData,
+                    'shipping': shippingInfo,
+                })
+            }
+        ).then(
+            (response) => { return response.json(); }
+        ).then(
+            (data) => {
+                alert("Transaction done");
+                window.location.href = "{% url 'home' %}";
+            }
+        )
     }
 </script>
 {% endblock body %}

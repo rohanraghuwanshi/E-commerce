@@ -82,8 +82,8 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "OrderItem"
-        verbose_name_plural = "OrderItems"
+        verbose_name = "Order Item"
+        verbose_name_plural = "Order Items"
 
     def __str__(self):
         return self.product.name
@@ -104,8 +104,8 @@ class ShippingAddress(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "ShippingAddress"
-        verbose_name_plural = "ShippingAddresss"
+        verbose_name = "Shipping Address"
+        verbose_name_plural = "Shipping Addresss"
 
     def __str__(self):
         return self.address

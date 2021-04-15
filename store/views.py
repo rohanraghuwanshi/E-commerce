@@ -107,3 +107,7 @@ def update_item(request):
         orderitem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+def process_order(request):
+    return JsonResponse('Data Recieved', safe=False)

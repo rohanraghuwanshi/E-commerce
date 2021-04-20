@@ -17,13 +17,20 @@ def store(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
         items=[]
         order = {
             'get_cart_total':0,
             'get_cart_items':0,
             'shipping':False,
         }
-        cartItems =order['get_cart_items']
+        cartItems = order['get_cart_items']
+
+        for i in cart:
+            cartItems += cart[i]['quantity']
 
     products = Product.objects.all()
 
@@ -43,6 +50,10 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
         items=[]
         order = {
             'get_cart_total':0,
@@ -50,6 +61,9 @@ def cart(request):
             'shipping':False,
         }
         cartItems = order['get_cart_items']
+
+        for i in cart:
+            cartItems += cart[i]['quantity']
 
     context = {
         'items':items,
@@ -68,6 +82,10 @@ def checkout(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
         items=[]
         order = {
             'get_cart_total':0,
@@ -75,6 +93,9 @@ def checkout(request):
             'shipping':False,
         }
         cartItems = order['get_cart_items']
+
+        for i in cart:
+            cartItems += cart[i]['quantity']
 
     context = {
         'items':items,

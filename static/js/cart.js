@@ -1,37 +1,57 @@
-var updateBtns = document.getElementsByClassName('update-cart')
+var updateBtns = document.getElementsByClassName("update-cart");
 
 for (let i = 0; i < updateBtns.length; i++) {
-    updateBtns[i].addEventListener('click', function() {
-        var productID = this.dataset.product;
-        var action = this.dataset.action;
-        
-        if (user == 'AnonymousUser') {
-            console.log('Not authenticated');
-        } else {
-            updateUserOrder(productID, action);
-        }
-    })
+  updateBtns[i].addEventListener("click", function () {
+    var productID = this.dataset.product;
+    var action = this.dataset.action;
+
+    if (user == "AnonymousUser") {
+      addCookieItem(productID, action);
+    } else {
+      updateUserOrder(productID, action);
+    }
+  });
 }
 
-function updateUserOrder(productID, action){
 
-    var url = '/update_item/'
+function addCookieItem(productID, action){
+    
+    if (action == 'add') {
+        if (cart[productID] == undefined) {
+            cart[productID]={'quantity':1};
+        } else {
+            cart[productID]['quantity'] += 1;
+        }        
+    }
 
-    fetch(
-        url,
-        {
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body:JSON.stringify({'productID':productID, 'action':action}),
+    if (action == 'remove') {
+        cart[productID]['quantity'] -= 1;
+
+        if (cart[productID]['quantity'] <= 0) {
+            console.log("Item Removed");
+            delete cart[productID];
         }
-    ).then(
-        (response) => { return response.json(); }
-    ).then(
-        (data) => { 
-            location.reload();
-        }
-    )
+    }
+    document.cookie = 'cart='+ JSON.stringify(cart) + ':domain=;path=/'
+    location.reload();
+}
+
+
+function updateUserOrder(productID, action) {
+  var url = "/update_item/";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({ productID: productID, action: action }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      location.reload();
+    });
 }

@@ -19,7 +19,7 @@ class Customer(models.Model):
 class Product(models.Model):
 
     name = models.CharField(max_length=50, null=True)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     digital = models.BooleanField(default=False, blank=True, null=True)
     image = models.ImageField(upload_to='images/Products', blank=True, null=True)
 

@@ -64,8 +64,6 @@ def cartData(request):
 
 
 def guestOrder(request, data):
-    print("User not logged in")
-    print(request.COOKIES)
 
     name = data["form"]["name"]
     email = data["form"]["email"]
